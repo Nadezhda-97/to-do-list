@@ -7,7 +7,6 @@ import Todo from "../types/Todo";
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
-  const [editId, setEditId] = useState<number | null>(null);
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
@@ -39,11 +38,6 @@ const TodoList: React.FC = () => {
     setInputValue('');
   };
 
-  const handleEdit = (id: number, content: string) => {
-    setEditId(id);
-    setInputValue(content);
-  };
-
   const handleDelete = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
@@ -54,21 +48,10 @@ const TodoList: React.FC = () => {
     ));
   };
 
-  //??
-  const handleUpdate = () => {
-    if (editId === null) return;
-    if (inputValue.trim() === '' || inputValue.length < 3) {
-      setError('Текст задачи должен содержать минимум 3 символа.');
-      return;
-    }
-
-    setError('');
-
+  const handleUpdate = (id: number, content: string) => {
     setTodos(todos.map(todo =>
-      todo.id === editId ? { ...todo, content: inputValue } : todo
+      todo.id === id ? { ...todo, content } : todo
     ));
-    setInputValue('');
-    setEditId(null);
   };
 
   return (
@@ -76,27 +59,25 @@ const TodoList: React.FC = () => {
       <h1>To Do List</h1>
       <input 
         type="text"
+        placeholder="Add task description"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         autoFocus
       />
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {editId ? (
-        <button onClick={handleUpdate}>Update</button>
-      ) : (
-        <button onClick={handleAdd}>Add</button>
-      )}
-      <ul>
-        {todos.map((todo) => (
+      <button onClick={handleAdd}>Add Task</button>
+      <ol>
+        {todos.map((todo, index) => (
           <TodoItem
             key={todo.id}
             todo={todo}
             onToggleComplete={handleToggleComplete}
-            onEdit={handleEdit}
+            onUpdate={handleUpdate}
             onDelete={handleDelete}
+            index={index + 1}
           />
         ))}
-      </ul>
+      </ol>
     </div>
   );
 };
