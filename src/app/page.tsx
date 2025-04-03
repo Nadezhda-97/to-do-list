@@ -1,7 +1,16 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+/* import Image from "next/image";
+import styles from "./page.module.css"; */
+import TodoList from "./components/TodoList";
 
 export default function Home() {
+  return (
+    <div>
+      <TodoList />
+    </div>
+  );
+}
+
+/* 
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -92,4 +101,4 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+*/
