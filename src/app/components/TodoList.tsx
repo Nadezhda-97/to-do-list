@@ -2,12 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
+import CharacterCounter from "./CharacterCounter";
+import { validateTask } from "../utils/validation";
 import Todo from "../types/Todo";
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [error, setError] = useState<string>('');
+
+  const MAX_LENGTH = 300;
 
   useEffect(() => {
     const storedTodos = localStorage.getItem('todos');
@@ -21,10 +25,11 @@ const TodoList: React.FC = () => {
   }, [todos]);
 
   const handleAdd = () => {
-    if (inputValue.trim() === '' || inputValue.length < 3) {
-      setError('Текст задачи должен содержать минимум 3 символа');
+    const validationError = validateTask(inputValue, MAX_LENGTH);
+    if (validationError) {
+      setError(validationError);
       return;
-    }
+    }   
 
     setError('');
 
@@ -55,18 +60,28 @@ const TodoList: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>To Do List</h1>
-      <input 
-        type="text"
-        placeholder="Add task description"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        autoFocus
-      />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button onClick={handleAdd}>Add Task</button>
-      <ol>
+    <div className="todo-container">
+      <div className="header">
+        <h1 className="title">ToDo List</h1>
+        <button className="language-button">🌍</button>
+      </div>
+      <div className="input-container">
+        <input 
+          type="text"
+          className="task-input"
+          placeholder="Add task description"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          maxLength={MAX_LENGTH}
+          autoFocus
+        />
+        <div className="input-bottom">
+          <CharacterCounter value={inputValue} maxLength={MAX_LENGTH} />
+          <button className="add-button" onClick={handleAdd}>Add Task</button>
+        </div>
+        {error && <p className="error-message">{error}</p>}
+      </div>
+      <ol className="task-list">
         {todos.map((todo, index) => (
           <TodoItem
             key={todo.id}
