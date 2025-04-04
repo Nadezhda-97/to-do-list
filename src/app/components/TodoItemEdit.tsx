@@ -1,20 +1,25 @@
 'use client'
 
 import React, { useState } from "react";
+import { validateTask } from "../utils/validation";
 
 interface TodoItemEditProps {
   initialValue: string;
   onSave: (content: string) => void;
   onCancel: () => void;
+  isExiting?: boolean;
 }
 
-const TodoItemEdit: React.FC<TodoItemEditProps> = ({ initialValue, onSave, onCancel }) => {
+const MAX_LENGTH = 300;
+
+const TodoItemEdit: React.FC<TodoItemEditProps> = ({ initialValue, onSave, onCancel, isExiting }) => {
   const [editValue, setEditValue] = useState<string>(initialValue);
   const [error, setError] = useState<string>('');
 
   const handleSave = () => {
-    if (editValue.trim() === '' || editValue.length < 3) {
-      setError('Текст задачи должен содержать минимум 3 символа');
+    const validationError = validateTask(editValue, MAX_LENGTH);
+    if (validationError) {
+      setError(validationError);
       return;
     }
 
@@ -23,19 +28,22 @@ const TodoItemEdit: React.FC<TodoItemEditProps> = ({ initialValue, onSave, onCan
   };
 
   return (
-    <div>
+    <div className={`edit-container ${isExiting ? 'exit' : ''}`}>
       <input
         type="text"
+        className="todo-edit-input"
         placeholder="Add a new task description"
         value={editValue}
         onChange={(e) => setEditValue(e.target.value)}
         autoFocus
       />
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button onClick={handleSave}>Save</button>
-      <button onClick={onCancel}>Cancel</button>
+      {error && <p className="error-message">{error}</p>}
+      <div className="button-group">
+        <button className="save-button" onClick={handleSave}>Save</button>
+        <button className="cancel-button" onClick={onCancel}>Cancel</button>
+      </div>
     </div>
-  )
+  );
 };
 
 export default TodoItemEdit;
