@@ -1,0 +1,290 @@
+/* Todo List */
+.todo-container {
+  max-width: 80%;
+  margin: auto;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  color: #4a4a4a;
+  font-size: 2.5rem;
+}
+
+.language-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* prev
+.task-input {
+  padding: 15px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 30px);
+} */
+
+.task-input {
+  padding: 18px;
+  font-size: 1.4rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.add-button {
+  background-color: #625bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.add-button:hover {
+  background-color: #5048e5;
+}
+
+.add-button:active {
+  background-color: #3d38c5;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+/* Todo Item */
+.task-list li {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.task-content.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* стили фиксированные, не адаптивные
+изменить помощью transform или em rem
+*/
+.task-content input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* изменение цвета чекбокса, когда задача выполнена
+НЕ РАБОТАЕТ 
+.task-content.completed input[type="checkbox"] {
+  background-color: #625bff;
+  border-color: #625bff;
+} */
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end; /* !!! добавила для распол кнопок справа */
+}
+
+.edit-button {
+  background-color: #625bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.edit-button:hover {
+  background-color: #5048e5;
+}
+
+.edit-button:active {
+  background-color: #3d38c5;
+}
+
+.delete-button {
+  background-color: #ff5b5b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.delete-button:hover {
+  background-color: #e04848;
+}
+
+.delete-button:active {
+  background-color: #c03636;
+}
+
+/* Todo Item Edit */
+.edit-container {
+  animation: fadeSlideIn 0.3s ease forwards;
+}
+
+.edit-container.exit {
+  animation: fadeSlideOut 0.3s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.todo-edit-input {
+  padding: 15px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.save-button, .cancel-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.save-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #218838;
+}
+
+.save-button:active {
+  background-color: #1e7e34;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
+}
+
+.cancel-button:active {
+  background-color: #545b62;
+}
+
+.error-message {
+  color: red;
+}
+
+
+/* ver 1
+ .todo-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  .title {
+    text-align: center;
+    color: #4a4a4a;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .add-button {
+    background-color: #625bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .task-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .error-message {
+    color: red;
+  } */
