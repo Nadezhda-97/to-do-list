@@ -1,8 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
+
 import TodoItem from "./TodoItem";
 import CharacterCounter from "./CharacterCounter";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { validateTask } from "../utils/validation";
 import Todo from "../types/Todo";
 
@@ -10,6 +13,7 @@ const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const { t } = useTranslation();
 
   const MAX_LENGTH = 300;
 
@@ -62,14 +66,14 @@ const TodoList: React.FC = () => {
   return (
     <div className="todo-container">
       <div className="header">
-        <h1 className="title">ToDo List</h1>
-        <button className="language-button">🌍</button>
+        <h1 className="title">{t('title')}</h1>
+        <LanguageSwitcher />
       </div>
       <div className="input-container">
         <input 
           type="text"
           className="task-input"
-          placeholder="Add task description"
+          placeholder={t('placeholder')}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           maxLength={MAX_LENGTH}
@@ -77,7 +81,7 @@ const TodoList: React.FC = () => {
         />
         <div className="input-bottom">
           <CharacterCounter value={inputValue} maxLength={MAX_LENGTH} />
-          <button className="add-button" onClick={handleAdd}>Add Task</button>
+          <button className="add-button" onClick={handleAdd}>{t('addTask')}</button>
         </div>
         {error && <p className="error-message">{error}</p>}
       </div>
