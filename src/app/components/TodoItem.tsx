@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import TodoItemEdit from "./TodoItemEdit";
 import Todo from "../types/Todo";
 
@@ -20,6 +21,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const handleStartEdit = () => {
     setIsEditing(true);
@@ -63,8 +65,8 @@ const TodoItem: React.FC<TodoItemProps> = ({
             <span>{index}. {todo.content}</span>
           </div>
           <div className="button-group">
-            <button className="edit-button" onClick={handleStartEdit}>Edit</button> {/* onClick={() => setIsEditing(true)} */}
-            <button className="delete-button" onClick={() => onDelete(todo.id)}>Delete</button>
+            <button className="edit-button" onClick={handleStartEdit}>{t('edit')}</button> {/* onClick={() => setIsEditing(true)} */}
+            <button className="delete-button" onClick={() => onDelete(todo.id)}>{t('delete')}</button>
           </div>
         </div>
       )}
