@@ -20,13 +20,6 @@
   font-size: 2.5rem;
 }
 
-.language-button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
 .input-container {
   display: flex;
   flex-direction: column;
@@ -274,4 +267,54 @@
 
 .error-message {
   color: red;
+}
+
+/* language button */
+.language-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.language-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.language-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 0;
+  margin: 8px 0 0;
+  list-style: none;
+  z-index: 1000;
+  min-width: 120px;
+}
+
+.language-menu li {
+  width: 100%;
+}
+
+.language-menu button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.language-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+.language-menu button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
