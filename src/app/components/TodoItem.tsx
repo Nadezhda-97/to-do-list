@@ -38,7 +38,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
   };
 
   return (
-    <li>
+    <li className="task-item-container">
       {isEditing ? (
         <div className={`edit-wrapper ${showEdit ? "fade-in" : "fade-out"}`}>
           <TodoItemEdit
@@ -49,7 +49,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           />
         </div>
       ) : (
-        <div className="task-content-container"> {/* ??? стили */}
+        <div className="task-content-container">
           <div
             className={`task-content ${todo.completed ? "completed" : ""}`}
             onClick={() => onToggleComplete(todo.id)}
@@ -69,7 +69,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
         </div>
       )}
     </li>
-  )
+  );
 };
 
 export default TodoItem;
