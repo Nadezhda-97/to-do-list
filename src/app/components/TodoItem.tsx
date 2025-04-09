@@ -61,6 +61,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
               type="checkbox"
               checked={todo.completed}
               onChange={() => onToggleComplete(todo.id)}
+              aria-label={todo.completed ? t('markAsIncomplete') : t('markAsCompleted')}
             />
             <span>{index}. {todo.content}</span>
           </div>
