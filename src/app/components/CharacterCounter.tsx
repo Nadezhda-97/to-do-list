@@ -14,7 +14,7 @@ const CharacterCounter: React.FC<CharacterCounterProps> = ({ value, maxLength })
   };
 
   return (
-    <p style={{ color: getColor(), fontSize: '0.9rem' }}>
+    <p className="char-counter" style={{ color: getColor() }}>
       {value.length}/{maxLength}
     </p>
   );
