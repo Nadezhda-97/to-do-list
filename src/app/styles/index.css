@@ -1,13 +1,4 @@
-/* Todo List */
-/* prev ver
-.todo-container {
-  max-width: 80%;
-  margin: auto;
-  padding: 40px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-} */
+/* --- Todo List --- */
 
 .todo-container {
   max-width: 800px;
@@ -78,17 +69,26 @@
   box-sizing: border-box;
 }
 
+.char-counter {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+  .char-counter {
+    font-size: 1rem;
+  }
+}
+
 .add-button {
   background-color: #625bff;
   color: white;
   border: none;
-  /* padding: 12px 20px; */
+  padding: 0.75rem 1.25rem; /* padding: 12px 20px; */
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.2s;
-
-  padding: 0.75rem 1.25rem;
 }
 
 .add-button:hover {
@@ -118,7 +118,8 @@
   font-size: 1.2rem;
 }
 
-/* Todo Item */
+/* --- Todo Item --- */
+
 .task-item-container { /* .task-list li */
   background: white;
   padding: 15px;
@@ -126,16 +127,12 @@
   border-radius: 5px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px; */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .task-item-container:hover {
   transform: translateY(-2px);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
 }
 
 .task-content-container {
@@ -162,17 +159,14 @@
   color: #888;
 }
 
-/* стили фиксированные, не адаптивные
-изменить помощью transform или em rem
-*/
 .task-content input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem; /* 24px; */
+  height: 1.5rem; /* 24px; */
   cursor: pointer;
 
   appearance: none;
-  border: 2px solid #ccc;
-  border-radius: 4px;
+  border: 0.125rem solid #ccc; /* 2px solid #ccc; */
+  border-radius: 0.25rem; /* 4px; */
   position: relative;
   background-color: white;
   display: grid;
@@ -188,7 +182,18 @@
 .task-content input[type="checkbox"]:checked::after {
   content: '✔';
   color: white;
-  font-size: 16px;
+  font-size: 1rem; /* 16px; */
+}
+
+@media (max-width: 480px) {
+  .task-content input[type="checkbox"] {
+    width: 2rem;     /* 32px */
+    height: 2rem;
+  }
+
+  .task-content input[type="checkbox"]:checked::after {
+    font-size: 1.25rem; /* 20px */
+  }
 }
 
 .button-group {
@@ -203,13 +208,11 @@
   background-color: #625bff;
   color: white;
   border: none;
-  /* padding: 8px 16px; */
+  padding: 0.5rem 1rem; /* padding: 8px 16px; */
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.2s;
-
-  padding: 0.5rem 1rem;
 }
 
 .edit-button:hover {
@@ -224,13 +227,11 @@
   background-color: #ff5b5b;
   color: white;
   border: none;
-  /* padding: 8px 16px; */
+  padding: 0.5rem 1rem; /* padding: 8px 16px; */
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.2s;
-
-  padding: 0.5rem 1rem;
 }
 
 .delete-button:hover {
@@ -261,7 +262,7 @@
 }
 
 
-/* Todo Item Edit */
+/* --- Todo Item Edit --- */
 .edit-container {
   animation: fadeSlideIn 0.3s ease forwards;
 }
@@ -337,11 +338,34 @@
   background-color: #545b62;
 }
 
+@media (max-width: 480px) {
+  .add-button,
+  .edit-button,
+  .delete-button,
+  .save-button,
+  .cancel-button {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .save-button,
+  .cancel-button {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .edit-container .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* --- Error message --- */
 .error-message {
   color: red;
 }
 
-/* language button */
+/* --- language button --- */
 .language-switcher {
   position: relative;
   display: inline-block;
@@ -352,6 +376,11 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+}
+
+.language-button:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
 }
 
 .language-menu {
@@ -397,10 +426,59 @@
   }
 
   .language-menu {
-    min-width: 100px;
+    /* min-width: 100px; */
+    width: max-content;
+    max-width: 90vw;
+    white-space: nowrap;
   }
 
   .language-button {
-    font-size: 1.2rem;
+    font-size: 2.2rem;
+  }
+}
+
+/* адаптивные стили под планшеты (max-width: 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .todo-container {
+    padding: 32px 20px;
+  }
+
+  .title {
+    font-size: 2.25rem;
+  }
+
+  .task-input {
+    font-size: 1.3rem;
+    padding: 16px;
+  }
+
+  .char-counter {
+    font-size: 1rem;
+  }
+
+  .add-button,
+  .edit-button,
+  .delete-button,
+  .save-button,
+  .cancel-button {
+    font-size: 1.05rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .task-content input[type="checkbox"] {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .task-content input[type="checkbox"]:checked::after {
+    font-size: 1.1rem;
+  }
+
+  .language-button {
+    font-size: 2rem;
+  }
+
+  .language-menu {
+    min-width: 110px;
   }
 }
