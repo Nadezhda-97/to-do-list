@@ -1,0 +1,16 @@
+{
+  "title": "ToDo List",
+  "placeholder": "Add task description",
+  "addTask": "Add Task",
+  "edit": "Edit",
+  "delete": "Delete",
+  "save": "Save",
+  "cancel": "Cancel",
+  "errorRequired": "Task cannot be empty",
+  "errorTooShort": "Task must be at least 3 characters long",
+  "errorTooLong": "Task must not exceed {{max}} characters",
+
+  "markAsCompleted": "Mark as completed",
+  "markAsIncomplete": "Mark as incomplete"
+}
+  

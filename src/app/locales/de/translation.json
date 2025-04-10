@@ -1,0 +1,16 @@
+{
+  "title": "Aufgabenliste",
+  "placeholder": "Aufgabenbeschreibung hinzufügen",
+  "addTask": "Aufgabe hinzufügen",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "save": "Speichern",
+  "cancel": "Abbrechen",
+  "errorRequired": "Die Aufgabe darf nicht leer sein",
+  "errorTooShort": "Die Aufgabe muss mindestens 3 Zeichen lang sein",
+  "errorTooLong": "Die Aufgabe darf {{max}} Zeichen nicht überschreiten",
+
+  "markAsCompleted": "Als erledigt markieren",
+  "markAsIncomplete": "Erledigt-Markierung entfernen"
+}
+  
