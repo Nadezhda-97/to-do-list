@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import TodoItemEdit from "./TodoItemEdit";
 import Todo from "../types/Todo";
+import Translations from "../types/Translations";
 
 interface TodoItemProps {
   todo: Todo;
@@ -11,13 +12,17 @@ interface TodoItemProps {
   onUpdate: (id: number, content: string) => void;
   onDelete: (id: number) => void;
   index: number;
+  //t: (key: string) => string;
+  translations: Translations;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({
   todo,
   onToggleComplete,
   onUpdate,
-  onDelete,index
+  onDelete,
+  index,
+  translations
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
@@ -48,13 +53,14 @@ const TodoItem: React.FC<TodoItemProps> = ({
             onSave={handleUpdate}
             onCancel={handleCancelEdit} /* onCancel={() => setIsEditing(false)} */
             isExiting={!showEdit}
+            translations={translations}
           />
         </div>
       ) : (
         <div className="task-content-container">
           <div
             className={`task-content ${todo.completed ? "completed" : ""}`}
-            onClick={() => onToggleComplete(todo.id)}
+            onClick={() => onToggleComplete(todo.id)} /* УБРАТЬ??? */
             style={{ cursor: "pointer" }}
           >
             <input
