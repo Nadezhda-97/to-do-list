@@ -3,23 +3,26 @@
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { validateTask } from "../utils/validation";
+import Translations from "../types/Translations";
 
 interface TodoItemEditProps {
   initialValue: string;
   onSave: (content: string) => void;
   onCancel: () => void;
   isExiting?: boolean;
+  //t: (key: string) => string;
+  translations: Translations;
 }
 
 const MAX_LENGTH = 300;
 
-const TodoItemEdit: React.FC<TodoItemEditProps> = ({ initialValue, onSave, onCancel, isExiting }) => {
+const TodoItemEdit: React.FC<TodoItemEditProps> = ({ initialValue, onSave, onCancel, isExiting, translations }) => {
   const [editValue, setEditValue] = useState<string>(initialValue);
   const [error, setError] = useState<string>('');
   const { t } = useTranslation();
 
   const handleSave = () => {
-    const validationError = validateTask(editValue, MAX_LENGTH);
+    const validationError = validateTask(editValue, MAX_LENGTH, translations);
     if (validationError) {
       setError(validationError);
       return;
