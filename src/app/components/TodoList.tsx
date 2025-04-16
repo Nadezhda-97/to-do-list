@@ -2,34 +2,78 @@
 
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n/client'; // клиентский экземпляр
 
 import TodoItem from "./TodoItem";
 import CharacterCounter from "./CharacterCounter";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { validateTask } from "../utils/validation";
 import Todo from "../types/Todo";
+import Translations from "../types/Translations";
 
-const TodoList: React.FC = () => {
+import { v4 as uuidv4 } from 'uuid'; // 👈 генерируем уникальные id
+
+interface TodoListProps {
+  locale: string;
+  translations: Translations;
+}
+
+const TodoList: React.FC<TodoListProps> = ({ locale, translations }) => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [isClient, setIsClient] = useState(false); // 👈 трекер загрузки на клиенте
   const { t } = useTranslation();
 
   const MAX_LENGTH = 300;
 
+  // 1. Отметим, что компонент работает на клиенте
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  /* useEffect(() => {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {
       setTodos(JSON.parse(storedTodos));
     }
-  }, []);
+  }, [locale]); */
+
+  // 2. Загружаем todo из localStorage только на клиенте
+  useEffect(() => {
+    if (isClient) {
+      const storedTodos = localStorage.getItem('todos');
+      if (storedTodos) {
+        setTodos(JSON.parse(storedTodos));
+      }
+    }
+  }, [isClient]);
+
+  /* useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]); */
+
+  // 3. Сохраняем todo в localStorage при изменении
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+  }, [todos, isClient]);
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+    // Регистрируем переводы, если их ещё нет
+    if (!i18n.hasResourceBundle(locale, 'translation')) {
+      i18n.addResourceBundle(locale, 'translation', translations, true, true);
+    }
+
+    // Меняем язык (если текущий другой)
+    if (i18n.language !== locale) {
+      i18n.changeLanguage(locale);
+    }
+  }, [locale, translations]);
 
   const handleAdd = () => {
-    const validationError = validateTask(inputValue, MAX_LENGTH);
+    const validationError = validateTask(inputValue, MAX_LENGTH, translations);
     if (validationError) {
       setError(validationError);
       return;
@@ -38,7 +82,7 @@ const TodoList: React.FC = () => {
     setError('');
 
     const newTodo: Todo = {
-      id: Date.now(),
+      id: uuidv4(), // 👈 UUID вместо Date.now()
       content: inputValue,
       completed: false,
     };
@@ -94,6 +138,7 @@ const TodoList: React.FC = () => {
             onUpdate={handleUpdate}
             onDelete={handleDelete}
             index={index + 1}
+            translations={translations}
           />
         ))}
       </ol>
