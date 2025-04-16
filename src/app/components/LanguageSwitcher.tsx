@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 
 type Language = {
   code: string;
@@ -18,10 +20,20 @@ const LanguageSwitcher: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const { i18n } = useTranslation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleLanguageChange = (lng: string) => {
     i18n.changeLanguage(lng);
+    Cookies.set('language', lng, { path: '/' }); // <-- сохраняем выбранный язык
     setIsOpen(false);
+
+    // Заменяем locale в текущем пути
+    const segments = pathname.split('/');
+    segments[1] = lng; // заменяем старый locale на новый
+    const newPath = segments.join('/');
+
+    router.push(newPath); // редирект на новый путь
   };
 
   useEffect(() => {
