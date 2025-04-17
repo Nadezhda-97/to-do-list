@@ -2,16 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n/client'; // клиентский экземпляр
+//import i18n from '../../i18n/client'; // клиентский экземпляр
 
 import TodoItem from "./TodoItem";
 import CharacterCounter from "./CharacterCounter";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { validateTask } from "../utils/validation";
+import { generateId } from "../utils/generateId";
+import { useLanguageReady } from "@/hooks/useLanguageReady";
 import Todo from "../types/Todo";
 import Translations from "../types/Translations";
-
-import { v4 as uuidv4 } from 'uuid'; // 👈 генерируем уникальные id
 
 interface TodoListProps {
   locale: string;
@@ -23,6 +23,7 @@ const TodoList: React.FC<TodoListProps> = ({ locale, translations }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [isClient, setIsClient] = useState(false); // 👈 трекер загрузки на клиенте
+  //const [isLanguageReady, setIsLanguageReady] = useState(false);
   const { t } = useTranslation();
 
   const MAX_LENGTH = 300;
@@ -60,7 +61,7 @@ const TodoList: React.FC<TodoListProps> = ({ locale, translations }) => {
     }
   }, [todos, isClient]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     // Регистрируем переводы, если их ещё нет
     if (!i18n.hasResourceBundle(locale, 'translation')) {
       i18n.addResourceBundle(locale, 'translation', translations, true, true);
@@ -68,9 +69,20 @@ const TodoList: React.FC<TodoListProps> = ({ locale, translations }) => {
 
     // Меняем язык (если текущий другой)
     if (i18n.language !== locale) {
-      i18n.changeLanguage(locale);
+      i18n.changeLanguage(locale).then(() => {
+        setIsLanguageReady(true);
+      });
+    } else {
+      setIsLanguageReady(true);
     }
   }, [locale, translations]);
+
+  // 👇 не рендерим, пока язык не установлен
+  if (!isLanguageReady) return null; */
+
+  const isLanguageReady = useLanguageReady(locale, translations);
+
+  if (!isLanguageReady) return null;
 
   const handleAdd = () => {
     const validationError = validateTask(inputValue, MAX_LENGTH, translations);
@@ -82,7 +94,7 @@ const TodoList: React.FC<TodoListProps> = ({ locale, translations }) => {
     setError('');
 
     const newTodo: Todo = {
-      id: uuidv4(), // 👈 UUID вместо Date.now()
+      id: generateId(),
       content: inputValue,
       completed: false,
     };
