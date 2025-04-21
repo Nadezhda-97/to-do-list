@@ -4,7 +4,14 @@ import TodoList from '../components/TodoList';
 import Translations from '../types/Translations';
 import isTranslations from '../utils/isTranslations';
 
-export default async function Home(props: { params: { locale: string } }) {
+/* type PageProps = {
+  params: {
+    locale: string
+  }
+} */
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function Home(props: any) { /* props: { params: { locale: string } } */
   const locale = props.params.locale;
   const i18n = await getServerTranslation(locale);
   const rawTranslations = i18n.getDataByLanguage(locale)?.translation || {};
