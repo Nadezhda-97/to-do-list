@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { languages, fallbackLng } from "@/i18n/settings";
+//import { languages, fallbackLng } from "@/i18n/settings";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
