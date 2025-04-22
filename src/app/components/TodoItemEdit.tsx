@@ -10,7 +10,6 @@ interface TodoItemEditProps {
   onSave: (content: string) => void;
   onCancel: () => void;
   isExiting?: boolean;
-  //t: (key: string) => string;
   translations: Translations;
 }
 
