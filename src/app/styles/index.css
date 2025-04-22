@@ -120,7 +120,7 @@
 
 /* --- Todo Item --- */
 
-.task-item-container { /* .task-list li */
+.task-item-container {
   background: white;
   padding: 15px;
   margin-bottom: 10px;
@@ -199,7 +199,7 @@
 .button-group {
   display: flex;
   gap: 10px;
-  justify-content: flex-end; /* !!! добавила для распол кнопок справа */
+  justify-content: flex-end;
 
   flex-shrink: 0;
 }
