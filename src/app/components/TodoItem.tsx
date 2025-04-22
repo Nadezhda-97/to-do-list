@@ -12,7 +12,6 @@ interface TodoItemProps {
   onUpdate: (id: number, content: string) => void;
   onDelete: (id: number) => void;
   index: number;
-  //t: (key: string) => string;
   translations: Translations;
 }
 
@@ -51,7 +50,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           <TodoItemEdit
             initialValue={todo.content}
             onSave={handleUpdate}
-            onCancel={handleCancelEdit} /* onCancel={() => setIsEditing(false)} */
+            onCancel={handleCancelEdit}
             isExiting={!showEdit}
             translations={translations}
           />
@@ -60,7 +59,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
         <div className="task-content-container">
           <div
             className={`task-content ${todo.completed ? "completed" : ""}`}
-            onClick={() => onToggleComplete(todo.id)} /* УБРАТЬ??? */
             style={{ cursor: "pointer" }}
           >
             <input
@@ -72,7 +70,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
             <span>{index}. {todo.content}</span>
           </div>
           <div className="button-group">
-            <button className="edit-button" onClick={handleStartEdit}>{t('edit')}</button> {/* onClick={() => setIsEditing(true)} */}
+            <button className="edit-button" onClick={handleStartEdit}>{t('edit')}</button>
             <button className="delete-button" onClick={() => onDelete(todo.id)}>{t('delete')}</button>
           </div>
         </div>
