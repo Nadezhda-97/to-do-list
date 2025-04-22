@@ -63,4 +63,5 @@ npm run build
 npm run start
 ```
 ## 🌐 Демо
-Ссылка на приложение
+
+[![Открыть демо](https://img.shields.io/badge/Открыть_демо-приложение-ffffff?style=for-the-badge&logo=vercel&logoColor=black)](https://todo-list-next-henna.vercel.app/)
